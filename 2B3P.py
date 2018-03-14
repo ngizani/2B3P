@@ -18,6 +18,14 @@ import optparse
 #from ssps.group.groups import group_presto_data
 #from ssps.presto.directories.base import PRESTODir
 
+from blimpy import Waterfall
+fb = Waterfall('/path/to/filterbank.fil')
+fb.info()
+data = fb.data
+fb2 = Waterfall('/path/to/filterbank.h5')
+fb2.info()
+data = fb2.data
+
 ddplanflag = 2
 totime  = 0
 pi = 3.1415926535897932384626433
@@ -255,8 +263,6 @@ if __name__ == "__main__":
 	DEC = (data[5].split("=")[1])
 	PSR = (data[3].split("=")[1])
 	
-
-#	print chan, bandwidth, lofq, samptime
 #	print ddplanflag,inpath,outpath
 #	print inffile[0],infile,outfile
 	
