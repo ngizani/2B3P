@@ -128,64 +128,64 @@ if __name__ == "__main__":
 	
 	parser = argparse.ArgumentParser()
 
-	parser.add_option('--ddplan',dest='ddplanflag', metavar='0/1/2',
+	parser.add_argument('--ddplan',dest='ddplanflag', metavar='0/1/2',
           	help="DDplan flag,  0: To run DDplan script and determine Ddplan from it," 
 		     "1: To use the hardwired DDplan default values, 2: For quick DM search, Default=2",
 	        default=2, type='float')
-	parser.add_option('--i',dest='inpath',metavar='INPATH',
+	parser.add_argument('--i',dest='inpath',metavar='INPATH',
        		help='Path and input .fil file',
 	        type='string')
-	parser.add_option('--o',dest='outpath',metavar='OUTPATH',
+	parser.add_argument('--o',dest='outpath',metavar='OUTPATH',
 	        help='Output file Dir. If exists it will ovewrite it if not then it will create one.',
 	        type='string')
-	parser.add_option('--lodm',dest='lodm',metavar='LO_DM',
+	parser.add_argument('--lodm',dest='lodm',metavar='LO_DM',
                 help='low dm vlaue for quick DM search, only used when ddplan = 2, default = 0.0',
 		default=0,type='float')
-	parser.add_option('--dmstep',dest='dmstep',metavar='DM_STEP',
+	parser.add_argument('--dmstep',dest='dmstep',metavar='DM_STEP',
                 help='dm step for quick DM search, only used when ddplan = 2, default = 1',
                 default=1,type='float')
-	parser.add_option('--ndm',dest='ndm',metavar='Num_DM',
+	parser.add_argument('--ndm',dest='ndm',metavar='Num_DM',
                 help='Number of DMs for quick DM search, only used when ddplan = 2, default = 150 Note: with mpi this number will be adjusted to be divisible by np',
                 default=150,type='float')
-	parser.add_option('--downsamp',dest='downsamp',metavar='DOWNSAMPLE',
+	parser.add_argument('--downsamp',dest='downsamp',metavar='DOWNSAMPLE',
                 help='Down sample the input data for quick DM search, only used when ddplan = 2, default = 1',
                 default=1,type='float')
-	parser.add_option('--mpi',dest='mpiflag',metavar='MPI_FLAG',
+	parser.add_argument('--mpi',dest='mpiflag',metavar='MPI_FLAG',
                 help='To use mpiprepsubband instead of normal prepsubband MPI_FLAG shouble be 1. default = 0 NOTE : mpiprepsubband will not work with --ddplan 0 or 1',
                 default=0,type='int')
-	parser.add_option('--np',dest='np',metavar='NUMBER_OF_PORT',
+	parser.add_argument('--np',dest='np',metavar='NUMBER_OF_PORT',
                 help='Number of port to be used with mpiprepsubband. default = 8.',
                 default=8,type='int')	
 
-	parser.add_option('--mask',dest='maskfile',metavar='MASKFILE',
+	parser.add_argument('--mask',dest='maskfile',metavar='MASKFILE',
                 type='string',default='')
 	
-	parser.add_option('--zap',dest='zapfile',metavar='ZAPFILE',
+	parser.add_argument('--zap',dest='zapfile',metavar='ZAPFILE',
                 help='.zaplist file which has list of birdi found at zero DM. No further RFI flagging will be done.',
                 type='string',default='')
 
-	options, args = parser.parse_args()
+	args = parser.parse_args()
 	
-	if (not options.inpath) or (not options.outpath):
+	if (not args.inpath) or (not args.outpath):
 	        print 'Input and output paths are required.'
         	print parser.print_help()
 	        sys.exit(1)
 
-	inpath = options.inpath
-	outpath = options.outpath	
-	ddplanflag = options.ddplanflag
-	LODM = options.lodm
-	DMSTEP = options.dmstep
-	NDM = options.ndm
-	DOWNSAMP = options.downsamp
-	mpiflag = options.mpiflag	
-	MASKFILE = options.maskfile
-	zapfile = options.zapfile	
+	inpath = args.inpath
+	outpath = args.outpath	
+	ddplanflag = args.ddplanflag
+	LODM = args.lodm
+	DMSTEP = args.dmstep
+	NDM = args.ndm
+	DOWNSAMP = args.downsamp
+	mpiflag = args.mpiflag	
+	MASKFILE = args.maskfile
+	zapfile = args.zapfile	
 
 	print MASKFILE
 
 	if(mpiflag==1):
-		np = options.np - 1 
+		np = args.np - 1 
 
 	        blk = 1000 
 # 	As mpiprepsubband can not take more than 1000 dm at a time numdm will be divided in blks 
