@@ -13,10 +13,18 @@ import os, sys, glob
 import numpy,time 
 import sifting
 import math
-import optparse
+import argparse
 
 #from ssps.group.groups import group_presto_data
 #from ssps.presto.directories.base import PRESTODir
+
+from blimpy import Waterfall
+fb = Waterfall('/path/to/filterbank.fil')
+fb.info()
+data = fb.data
+fb2 = Waterfall('/path/to/filterbank.h5')
+fb2.info()
+data = fb2.data
 
 ddplanflag = 2
 totime  = 0
@@ -118,7 +126,7 @@ def rad_to_deg(rad):
 
 if __name__ == "__main__":
 	
-	parser = optparse.OptionParser()
+	parser = argparse.ArgumentParser()
 
 	parser.add_option('--ddplan',dest='ddplanflag', metavar='0/1/2',
           	help="DDplan flag,  0: To run DDplan script and determine Ddplan from it," 
@@ -150,7 +158,6 @@ if __name__ == "__main__":
                 default=8,type='int')	
 
 	parser.add_option('--mask',dest='maskfile',metavar='MASKFILE',
-                help='.mask file to be used for the RFI flagging. No further RFI flagging will be done.',
                 type='string',default='')
 	
 	parser.add_option('--zap',dest='zapfile',metavar='ZAPFILE',
@@ -337,7 +344,7 @@ if __name__ == "__main__":
         # rfifind (block ~2.6s)
         #cmd="rfifind -blocks 2048 -o %s %s > %s" % (outfile, infile, outfile+"_output.log")
 	if(MASKFILE == ''):
-		cmd="rfifind -time 2.0 -o %s %s > %s" % (outfile, infile, outfile+"_output.log")
+		cmd="rfifind -time 1.0 -o %s %s > %s" % (outfile, infile, outfile+"_output.log")
         	print "Running RFI excision..."
 
         	rfi_time = timed_execute(cmd,1)
