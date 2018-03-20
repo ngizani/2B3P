@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 #
-# Script to search pulsars in BL-GBT data
-# Documentation can be found in Pulsar_seach_BL-GBT.txt file
+# Script to search for periodic wide band signals in BL-GBT data
+# Please see 2B3P.txt file
 #
-# Author : Vishal Gajjar (1 June 2016) 
-# Email : vishalg@berkeley.edu or vishal.gajjar2002@gmail.com
-# v2 : digilab version
-# v3 : RFIFIND and zapbirdie incorported
+# Authors : Nectaria Gizani (18 February 2018) from Vishal Gajjar's script Pulsar_Search_BL.py  
+# Email : ngizani@berkeley.edu
+# v1 : only using CPU, because of PRESTO
+# v2 : update for GPU -- future
 #-------------------------------------------------------------------------------------------#
 
 import os, sys, glob
@@ -17,14 +17,6 @@ import optparse
 
 #from ssps.group.groups import group_presto_data
 #from ssps.presto.directories.base import PRESTODir
-
-from blimpy import Waterfall
-fb = Waterfall('/path/to/filterbank.fil')
-fb.info()
-data = fb.data
-fb2 = Waterfall('/path/to/filterbank.h5')
-fb2.info()
-data = fb2.data
 
 ddplanflag = 2
 totime  = 0
@@ -263,6 +255,8 @@ if __name__ == "__main__":
 	DEC = (data[5].split("=")[1])
 	PSR = (data[3].split("=")[1])
 	
+
+#	print chan, bandwidth, lofq, samptime
 #	print ddplanflag,inpath,outpath
 #	print inffile[0],infile,outfile
 	
